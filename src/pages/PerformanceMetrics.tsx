@@ -1,34 +1,91 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
+import { ChartContainer } from "@/components/ui/chart";
 
+// --- FINAL, CORRECTED Reusable Radial Chart Component ---
+const MetricRadialChart = ({ value, text, color }: { value: number; text: string; color: string }) => {
+  const chartData = [{ name: 'metric', value, fill: color }];
+
+  return (
+    <div className="relative flex h-40 w-full items-center justify-center">
+      <ChartContainer
+        config={{
+          metric: {
+            label: "Metric",
+            color: color,
+          },
+        }}
+        className="absolute inset-0"
+      >
+        <RadialBarChart
+          data={chartData}
+          startAngle={90}
+          endAngle={-270}
+          innerRadius={60}
+          outerRadius={75}
+          barSize={12}
+          cy="50%"
+        >
+          <PolarAngleAxis 
+            type="number" 
+            domain={[0, 100]} 
+            tick={false} 
+          />
+          <RadialBar
+            dataKey="value"
+            cornerRadius={10}
+            background={{ fill: "hsl(var(--muted))" }}
+          />
+        </RadialBarChart>
+      </ChartContainer>
+      <div className="flex flex-col items-center justify-center">
+        <span className="font-hero text-3xl font-bold" style={{ color: color }}>
+          {text}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+
+// --- Updated PerformanceMetrics Component ---
 const PerformanceMetrics = () => {
   const metrics = [
     {
       title: "AI Decision Efficiency",
       value: "78%",
+      progressValue: 78,
       status: "GOOD",
       details: "156 AI / 200 total decisions today",
-      description: "How often AI makes smart decisions vs getting overridden",
-      color: "text-green-500"
+      description: "How often AI makes smart decisions vs getting overridden.",
+      textColor: "text-green-500",
+      chartColor: "#22c55e",
     },
     {
-      title: "Queue Reduction Performance", 
+      title: "Queue Reduction Performance",
       value: "37%",
+      progressValue: 37,
       status: "EXCELLENT",
       details: "12.5 avg vehicles (was 20 before AI)",
-      description: "How well AI reduces vehicle queues compared to before",
-      color: "text-emerald-500"
+      description: "How well AI reduces vehicle queues compared to before.",
+      textColor: "text-emerald-500",
+      chartColor: "#10b981",
     },
     {
       title: "Emergency Response Time",
       value: "1.6s",
-      status: "EXCELLENT", 
+      progressValue: 95,
+      status: "EXCELLENT",
       details: "8 emergency responses today",
-      description: "How fast system responds to emergencies",
-      color: "text-emerald-500"
-    }
+      description: "How fast the system responds to emergencies.",
+      textColor: "text-emerald-500",
+      chartColor: "#10b981",
+    },
   ];
 
   const getStatusColor = (status: string) => {
@@ -49,7 +106,7 @@ const PerformanceMetrics = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           {/* Page Header */}
@@ -63,7 +120,7 @@ const PerformanceMetrics = () => {
               Performance Metrics
             </h1>
             <p className="font-body text-xl text-muted-foreground max-w-3xl">
-              Comprehensive performance analysis based on AI output data, measuring efficiency, 
+              Comprehensive performance analysis based on AI output data, measuring efficiency,
               queue reduction, and emergency response capabilities.
             </p>
           </motion.div>
@@ -82,7 +139,7 @@ const PerformanceMetrics = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
               >
-                <Card className="bg-card/50 backdrop-blur-sm border-border hover:shadow-elegant transition-all duration-300 h-full">
+                <Card className="bg-card/50 backdrop-blur-sm border-border hover:shadow-elegant transition-all duration-300 h-full flex flex-col">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <CardTitle className="font-body text-lg font-semibold text-foreground leading-tight">
@@ -96,35 +153,14 @@ const PerformanceMetrics = () => {
                       {metric.description}
                     </p>
                   </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-4">
-                      {/* Main Value */}
-                      <div className="text-center py-6">
-                        <div className={`font-hero text-5xl font-bold mb-2 ${metric.color}`}>
-                          {metric.value}
-                        </div>
-                        <div className="font-body text-sm text-muted-foreground">
-                          {metric.details}
-                        </div>
-                      </div>
-                      
-                      {/* Progress indicator */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-xs text-muted-foreground">
-                          <span>Performance Level</span>
-                          <span>{metric.status}</span>
-                        </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full transition-all duration-500 ${
-                              metric.status === "EXCELLENT" ? "bg-emerald-500 w-full" :
-                              metric.status === "GOOD" ? "bg-green-500 w-3/4" :
-                              metric.status === "AVERAGE" ? "bg-yellow-500 w-1/2" :
-                              "bg-red-500 w-1/4"
-                            }`}
-                          />
-                        </div>
-                      </div>
+                  <CardContent className="pt-0 flex flex-col flex-grow justify-center">
+                    <MetricRadialChart
+                      value={metric.progressValue}
+                      text={metric.value}
+                      color={metric.chartColor}
+                    />
+                    <div className="text-center font-body text-sm text-muted-foreground mt-4">
+                      {metric.details}
                     </div>
                   </CardContent>
                 </Card>
@@ -172,7 +208,7 @@ const PerformanceMetrics = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <h3 className="font-body text-lg font-semibold text-foreground">
                       Traffic Impact

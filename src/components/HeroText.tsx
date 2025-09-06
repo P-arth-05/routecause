@@ -23,7 +23,7 @@ const HeroText = () => {
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
           className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-hero-dark bg-clip-text text-transparent leading-tight"
         >
-          Discover Your
+          The Algorithm 
         </motion.h1>
         
         <motion.h2
@@ -32,7 +32,7 @@ const HeroText = () => {
           transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
           className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-8 bg-gradient-hero-dark bg-clip-text text-transparent leading-tight"
         >
-          Route Cause
+         of the Open Road.
         </motion.h2>
       </motion.div>
     </div>
