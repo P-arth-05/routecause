@@ -100,21 +100,33 @@ const ScrollContent = () => {
           className="text-center"
         >
           <h2 className="font-hero text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            Ready to Find Your
+           If time is money, 
+
+
           </h2>
           <h2 className="font-hero text-4xl md:text-6xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent">
-            Route Cause?
+          isn't a fixed-timer traffic grid just organized,
+          </h2>
+          <h2 className="font-hero text-4xl md:text-6xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent">
+           city-wide theft?
           </h2>
           <p className="font-body text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Join thousands of businesses that have discovered their path to success 
-            through data-driven insights and root cause analysis.
+           Our AI traffic system is designed to stop this theft. By replacing blind, fixed timers with real-time perception and intelligent decision-making, we treat time as the valuable asset it is. Our system ensures every second of a green light is allocated efficiently based on actual traffic demand, returning that stolen value directly to a city's drivers, businesses, and its overall economy.
+
+
+
+
+
+
+
+
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="bg-gradient-primary hover:shadow-glow text-primary-foreground px-8 py-4 text-lg font-medium">
-              Start Free Trial
+              <a href="/Performance">performence Metric</a>
             </Button>
             <Button variant="outline" className="px-8 py-4 text-lg font-medium border-primary text-primary hover:bg-primary/10">
-              Schedule Demo
+              <a href="/emergency">Emergency Mode</a>
             </Button>
           </div>
         </motion.section>
