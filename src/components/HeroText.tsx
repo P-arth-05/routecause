@@ -34,16 +34,6 @@ const HeroText = () => {
         >
           Route Cause
         </motion.h2>
-
-        <motion.p
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
-          className="font-body text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-        >
-          Navigate through data-driven insights and performance metrics 
-          to uncover the real drivers of your success
-        </motion.p>
       </motion.div>
     </div>
   );
