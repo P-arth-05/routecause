@@ -9,7 +9,7 @@ const SplineScene = () => {
       transition={{ duration: 2, ease: "easeOut" }}
       className="fixed inset-0 z-0"
     >
-      <Spline scene="https://prod.spline.design/uvLB18F1RJuOORs0/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/870dfT20yVREP7-L/scene.splinecode" />
     </motion.div>
   );
 };
