@@ -33,12 +33,12 @@ const Header = () => {
               <a href="/performance">Performance Metrics</a>
             </Button>
             
-            {/* Theme Toggle */}
+            {/* Theme Toggle - Circle variant, top-right */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="hover:bg-primary/10"
+              className="rounded-full w-12 h-12 border-2 hover:bg-primary/10 hover:border-primary/30 transition-all duration-300"
             >
               <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
