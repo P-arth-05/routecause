@@ -21,7 +21,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            The Route Cause
+            <a href="/">The Route Cause</a>
           </motion.h1>
 
           {/* Navigation */}
@@ -31,6 +31,9 @@ const Header = () => {
             </Button>
             <Button variant="ghost" className="font-body font-medium hover:bg-primary/10" asChild>
               <a href="/performance">Performance Metrics</a>
+            </Button>
+            <Button variant="ghost" className="font-body font-medium hover:bg-primary/10" asChild>
+              <a href="/emergency">Emergency Mode</a>
             </Button>
             
             {/* Theme Toggle - Circle variant, top-right */}
