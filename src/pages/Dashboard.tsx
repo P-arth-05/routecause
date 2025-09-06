@@ -2,51 +2,131 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Progress } from "@/components/ui/progress";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
-  // Sample data for the area chart
-  const chartData = [
-    { month: "Jan", traffic: 186, efficiency: 80 },
-    { month: "Feb", traffic: 305, efficiency: 82 },
-    { month: "Mar", traffic: 237, efficiency: 75 },
-    { month: "Apr", traffic: 273, efficiency: 88 },
-    { month: "May", traffic: 209, efficiency: 91 },
-    { month: "Jun", traffic: 214, efficiency: 85 },
+  // Signal light state for 4 directions
+  const [signalStates, setSignalStates] = useState({
+    North: { color: "RED" as "RED" | "YELLOW" | "GREEN", timer: 45 },
+    South: { color: "GREEN" as "RED" | "YELLOW" | "GREEN", timer: 25 },
+    East: { color: "RED" as "RED" | "YELLOW" | "GREEN", timer: 20 },
+    West: { color: "YELLOW" as "RED" | "YELLOW" | "GREEN", timer: 3 }
+  });
+
+  // Vehicle counters for 4 directions
+  const [vehicleCounts, setVehicleCounts] = useState({
+    North: 12,
+    South: 8,
+    East: 15,
+    West: 6
+  });
+
+  // Queue length data for progress bars (percentage values)
+  const queueData = [
+    { direction: "North", queueLength: 75, color: "hsl(var(--primary))" },
+    { direction: "South", queueLength: 45, color: "hsl(var(--primary-glow))" },
+    { direction: "East", queueLength: 90, color: "hsl(var(--accent))" },
+    { direction: "West", queueLength: 30, color: "hsl(var(--secondary))" }
+  ];
+
+  // Queue trends data for area chart
+  const queueTrends = [
+    { time: "09:00", North: 20, South: 15, East: 25, West: 10 },
+    { time: "09:30", North: 35, South: 22, East: 40, West: 18 },
+    { time: "10:00", North: 45, South: 30, East: 55, West: 25 },
+    { time: "10:30", North: 38, South: 28, East: 48, West: 22 },
+    { time: "11:00", North: 42, South: 32, East: 52, West: 28 },
+    { time: "11:30", North: 48, South: 35, East: 58, West: 30 }
   ];
 
   const chartConfig = {
-    traffic: {
-      label: "Traffic Volume",
+    North: {
+      label: "North Queue",
       color: "hsl(var(--primary))",
     },
-    efficiency: {
-      label: "Efficiency %",
+    South: {
+      label: "South Queue", 
       color: "hsl(var(--primary-glow))",
+    },
+    East: {
+      label: "East Queue",
+      color: "hsl(var(--accent))",
+    },
+    West: {
+      label: "West Queue",
+      color: "hsl(var(--secondary))",
     },
   };
 
-  const metrics = [
-    {
-      title: "Active Intersections",
-      value: "47",
-      change: "+12%",
-      description: "Intersections under AI control"
-    },
-    {
-      title: "Average Wait Time",
-      value: "2.3 min",
-      change: "-18%",
-      description: "Reduced from last month"
-    },
-    {
-      title: "System Uptime",
-      value: "99.7%",
-      change: "+0.2%",
-      description: "Last 30 days"
-    }
-  ];
+  // Timer countdown effect for all directions
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSignalStates(prev => {
+        const newStates = { ...prev };
+        Object.keys(newStates).forEach(direction => {
+          const state = newStates[direction as keyof typeof newStates];
+          if (state.timer > 0) {
+            state.timer -= 1;
+          } else {
+            // Cycle through signals
+            const nextSignal = state.color === "RED" ? "GREEN" : 
+                             state.color === "GREEN" ? "YELLOW" : "RED";
+            const nextTimer = nextSignal === "RED" ? 45 : 
+                            nextSignal === "GREEN" ? 30 : 5;
+            state.color = nextSignal;
+            state.timer = nextTimer;
+          }
+        });
+        return newStates;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Simulate vehicle count updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVehicleCounts(prev => ({
+        North: Math.max(0, prev.North + Math.floor(Math.random() * 5) - 2),
+        South: Math.max(0, prev.South + Math.floor(Math.random() * 5) - 2),
+        East: Math.max(0, prev.East + Math.floor(Math.random() * 5) - 2),
+        West: Math.max(0, prev.West + Math.floor(Math.random() * 5) - 2)
+      }));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const SignalLight = ({ direction }: { direction: keyof typeof signalStates }) => {
+    const state = signalStates[direction];
+    return (
+      <div className="flex flex-col items-center space-y-2">
+        <div className="bg-muted rounded-lg p-3 flex flex-col items-center space-y-2">
+          <div className="w-10 h-10 rounded-full border-2 border-border flex items-center justify-center"
+               style={{ backgroundColor: state.color === "RED" ? "#ef4444" : "transparent" }}>
+            {state.color === "RED" && <div className="w-6 h-6 rounded-full bg-red-500"></div>}
+          </div>
+          <div className="w-10 h-10 rounded-full border-2 border-border flex items-center justify-center"
+               style={{ backgroundColor: state.color === "YELLOW" ? "#eab308" : "transparent" }}>
+            {state.color === "YELLOW" && <div className="w-6 h-6 rounded-full bg-yellow-500"></div>}
+          </div>
+          <div className="w-10 h-10 rounded-full border-2 border-border flex items-center justify-center"
+               style={{ backgroundColor: state.color === "GREEN" ? "#22c55e" : "transparent" }}>
+            {state.color === "GREEN" && <div className="w-6 h-6 rounded-full bg-green-500"></div>}
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="font-body text-xs text-muted-foreground">{direction}</div>
+          <div className="font-hero text-lg font-bold text-foreground">{state.timer}s</div>
+          <div className="font-body text-xs text-muted-foreground">{state.color}</div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,52 +142,87 @@ const Dashboard = () => {
             className="mb-12"
           >
             <h1 className="font-hero text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
-              Dashboard
+              Traffic Control Dashboard
             </h1>
             <p className="font-body text-xl text-muted-foreground max-w-3xl">
-              Real-time insights into traffic optimization and system performance across all monitored intersections.
+              Real-time intersection monitoring with signal control, vehicle counting, and queue management.
             </p>
           </motion.div>
 
-          {/* Metrics Cards */}
+          {/* Top Section: Traffic Signals & Backend Video */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid md:grid-cols-3 gap-6 mb-12"
+            className="grid lg:grid-cols-2 gap-8 mb-12"
           >
-            {metrics.map((metric, index) => (
-              <Card key={index} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-elegant transition-all duration-300">
-                <CardHeader className="pb-3">
-                  <CardTitle className="font-body text-lg font-semibold text-foreground">
-                    {metric.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <div className="font-hero text-3xl font-bold text-foreground mb-1">
-                        {metric.value}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className={`font-body text-sm font-medium ${
-                          metric.change.startsWith('+') ? 'text-green-500' : 
-                          metric.change.startsWith('-') ? 'text-red-500' : 'text-muted-foreground'
-                        }`}>
-                          {metric.change}
-                        </span>
-                        <span className="font-body text-sm text-muted-foreground">
-                          {metric.description}
-                        </span>
-                      </div>
+            {/* 4-Direction Traffic Signals */}
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardHeader>
+                <CardTitle className="font-body text-xl font-semibold text-foreground">
+                  Traffic Signal Status (4 Directions)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  {Object.keys(signalStates).map((direction) => (
+                    <div key={direction} className="flex justify-center">
+                      <SignalLight direction={direction as keyof typeof signalStates} />
                     </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Backend Video Showcase */}
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardHeader>
+                <CardTitle className="font-body text-xl font-semibold text-foreground">
+                  Backend System Live Feed
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="aspect-video bg-muted/30 rounded-lg flex items-center justify-center border-2 border-dashed border-border">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-primary rounded-full animate-pulse"></div>
+                    </div>
+                    <div className="font-body text-sm text-muted-foreground">Live Backend Feed</div>
+                    <div className="font-body text-xs text-muted-foreground mt-1">Real-time traffic processing</div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
 
-          {/* Area Chart */}
+          {/* Vehicle Counters Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mb-12"
+          >
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardHeader>
+                <CardTitle className="font-body text-xl font-semibold text-foreground">
+                  Vehicle Counters
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-4 gap-4">
+                  {Object.entries(vehicleCounts).map(([direction, count]) => (
+                    <div key={direction} className="text-center p-4 bg-muted/50 rounded-lg">
+                      <div className="font-body text-sm text-muted-foreground mb-1">{direction}</div>
+                      <div className="font-hero text-2xl font-bold text-foreground">{count}</div>
+                      <div className="font-body text-xs text-muted-foreground">vehicles</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Queue Length Progress Bars */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,35 +232,32 @@ const Dashboard = () => {
             <Card className="bg-card/50 backdrop-blur-sm border-border">
               <CardHeader>
                 <CardTitle className="font-body text-xl font-semibold text-foreground">
-                  Traffic Analysis Overview
+                  Queue Length Indicators
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ChartContainer config={chartConfig} className="h-[400px]">
-                  <AreaChart data={chartData}>
-                    <defs>
-                      <linearGradient id="fillTraffic" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Area
-                      type="monotone"
-                      dataKey="traffic"
-                      stroke="hsl(var(--primary))"
-                      fillOpacity={1}
-                      fill="url(#fillTraffic)"
-                    />
-                  </AreaChart>
-                </ChartContainer>
+                <div className="space-y-6">
+                  {queueData.map((data) => (
+                    <div key={data.direction} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <div className="font-body text-sm font-medium text-foreground">{data.direction}</div>
+                        <div className="font-hero text-lg font-bold text-foreground">{data.queueLength}%</div>
+                      </div>
+                      <div className="relative">
+                        <Progress 
+                          value={data.queueLength} 
+                          className="h-3 bg-muted/50" 
+                          indicatorColor={data.color}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* Backend Operations Video */}
+          {/* Queue Trends Area Chart */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,28 +266,39 @@ const Dashboard = () => {
             <Card className="bg-card/50 backdrop-blur-sm border-border">
               <CardHeader>
                 <CardTitle className="font-body text-xl font-semibold text-foreground">
-                  Backend Operations
+                  Queue Trends Over Time
                 </CardTitle>
-                <p className="font-body text-muted-foreground">
-                  See how our AI systems process traffic data in real-time to optimize intersection timings.
-                </p>
               </CardHeader>
               <CardContent>
-                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </div>
-                    <p className="font-body text-muted-foreground">
-                      Backend operations video will be integrated here
-                    </p>
-                    <p className="font-body text-sm text-muted-foreground mt-2">
-                      Placeholder for real-time system visualization
-                    </p>
-                  </div>
-                </div>
+                <ChartContainer config={chartConfig} className="h-[400px]">
+                  <AreaChart data={queueTrends}>
+                    <defs>
+                      <linearGradient id="fillNorth" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
+                      </linearGradient>
+                      <linearGradient id="fillSouth" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary-glow))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--primary-glow))" stopOpacity={0.1} />
+                      </linearGradient>
+                      <linearGradient id="fillEast" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--accent))" stopOpacity={0.1} />
+                      </linearGradient>
+                      <linearGradient id="fillWest" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--secondary))" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0.1} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Area type="monotone" dataKey="North" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#fillNorth)" />
+                    <Area type="monotone" dataKey="South" stroke="hsl(var(--primary-glow))" fillOpacity={1} fill="url(#fillSouth)" />
+                    <Area type="monotone" dataKey="East" stroke="hsl(var(--accent))" fillOpacity={1} fill="url(#fillEast)" />
+                    <Area type="monotone" dataKey="West" stroke="hsl(var(--secondary))" fillOpacity={1} fill="url(#fillWest)" />
+                  </AreaChart>
+                </ChartContainer>
               </CardContent>
             </Card>
           </motion.div>
