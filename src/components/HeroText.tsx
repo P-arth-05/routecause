@@ -1,0 +1,52 @@
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+const HeroText = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.5, 0]);
+
+  return (
+    <div ref={containerRef} className="relative h-screen flex items-center justify-center">
+      <motion.div
+        style={{ y, opacity }}
+        className="text-center z-10 px-6"
+      >
+        <motion.h1
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight"
+        >
+          Discover Your
+        </motion.h1>
+        
+        <motion.h2
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+          className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-8 bg-gradient-hero bg-clip-text text-transparent leading-tight"
+        >
+          Route Cause
+        </motion.h2>
+
+        <motion.p
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+          className="font-body text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+        >
+          Navigate through data-driven insights and performance metrics 
+          to uncover the real drivers of your success
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+};
+
+export default HeroText;
