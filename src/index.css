@@ -2,40 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The Route Cause Design System
-   Modern, clean aesthetic with beautiful gradients and typography
-   All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-     
     /* Light mode colors */
     --background: 0 0% 100%;
     --foreground: 222 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222 84% 4.9%;
-
     --primary: 243 75% 59%;
     --primary-foreground: 0 0% 98%;
     --primary-glow: 243 100% 70%;
-
     --secondary: 240 5% 96%;
     --secondary-foreground: 222 84% 4.9%;
-
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
-
     --accent: 243 75% 59%;
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 240 6% 90%;
     --input: 240 6% 90%;
     --ring: 243 75% 59%;
@@ -54,56 +40,35 @@
     --font-body: 'Inter', sans-serif;
 
     --radius: 0.75rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-     --gradient-hero-dark: linear-gradient(
-       135deg,
-       hsl(243 75% 50%) 0%,
-       hsl(261 73% 58%) 50%,
-       hsl(280 70% 65%) 100%);
     /* Dark mode colors */
     --background: 222 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 243 75% 65%;
     --primary-foreground: 222 84% 4.9%;
     --primary-glow: 243 100% 75%;
-
     --secondary: 217 32% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217 32% 17.5%;
     --muted-foreground: 215 20% 65%;
-
     --accent: 243 75% 65%;
     --accent-foreground: 222 84% 4.9%;
-
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217 32% 17.5%;
     --input: 217 32% 17.5%;
     --ring: 243 75% 65%;
@@ -136,12 +101,10 @@
     @apply bg-background text-foreground font-body;
   }
 
-  /* Smooth scrolling for the entire page */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Custom utility classes */
   .font-hero {
     font-family: var(--font-hero);
   }
@@ -149,11 +112,6 @@
   .font-body {
     font-family: var(--font-body);
   }
-
-   .bg-gradient-hero-dark {
-  background: var(--gradient-hero-dark);
-}
-
 
   .bg-gradient-hero {
     background: var(--gradient-hero);
@@ -175,7 +133,6 @@
     box-shadow: var(--shadow-glow);
   }
 
-  /* Custom animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
