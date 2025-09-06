@@ -26,11 +26,11 @@ const Header = () => {
 
           {/* Navigation */}
           <div className="flex items-center gap-4">
-            <Button variant="ghost" className="font-body font-medium hover:bg-primary/10">
-              Dashboard
+            <Button variant="ghost" className="font-body font-medium hover:bg-primary/10" asChild>
+              <a href="/dashboard">Dashboard</a>
             </Button>
-            <Button variant="ghost" className="font-body font-medium hover:bg-primary/10">
-              Performance Metrics
+            <Button variant="ghost" className="font-body font-medium hover:bg-primary/10" asChild>
+              <a href="/performance">Performance Metrics</a>
             </Button>
             
             {/* Theme Toggle */}
