@@ -52,7 +52,9 @@ const ScrollContent = () => {
             into clear, actionable insights that drive real business outcomes.
           </p>
           <Button className="bg-gradient-primary hover:shadow-glow text-primary-foreground px-8 py-4 text-lg font-medium group">
-            Get Started
+            <a href="/dashboard" className="flex items-center">
+              Get Started
+            </a>
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.section>
