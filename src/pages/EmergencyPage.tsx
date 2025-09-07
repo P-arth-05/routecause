@@ -40,7 +40,7 @@ const EmergencyPage = () => {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <h1 className="font-hero text-4xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="font-hero text-4xl mb-4 bg-gradient-primary bg-clip-text text-transparent">
               Emergency Mode
             </h1>
             <p className="text-muted-foreground text-lg">

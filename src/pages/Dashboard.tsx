@@ -141,7 +141,7 @@ const Dashboard = () => {
             transition={{ duration: 0.8 }}
             className="mb-12"
           >
-            <h1 className="font-hero text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="font-hero text-5xl mb-4 bg-gradient-primary bg-clip-text text-transparent">
               Traffic Control Dashboard
             </h1>
             <p className="font-body text-xl text-muted-foreground max-w-7xl">
