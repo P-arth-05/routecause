@@ -25,13 +25,11 @@ const Footer = () => {
               The Route Cause
             </h3>
             <p className="font-body text-muted-foreground leading-relaxed mb-6 max-w-md">
-              We believe that every business challenge has a root cause. Our mission is to help 
-              organizations discover these fundamental drivers through advanced analytics and 
-              data-driven insights, enabling them to make informed decisions that lead to 
-              sustainable growth and success.
+            At The Route Cause, we use a multi-layered AI to solve traffic congestion. Our platform uses computer vision to see and a Reinforcement Learning brain to intelligently manage live traffic, all governed by a safety and optimization engine. The result is safer streets, faster commutes, quicker emergency response, and a cleaner environment.
             </p>
             <p className="font-body text-sm text-muted-foreground">
-              Transforming data into actionable intelligence since 2024.
+              
+Join us in creating smarter, more responsive cities for everyone.
             </p>
           </motion.div>
 

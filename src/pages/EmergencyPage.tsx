@@ -3,6 +3,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import Header from "@/components/Header";
 import { motion } from "framer-motion";
+import Footer  from "@/components/Footer";
 
 // Mock data for demonstration
 const mockHistoryData = [
@@ -43,7 +44,10 @@ const EmergencyPage = () => {
               Emergency Mode
             </h1>
             <p className="text-muted-foreground text-lg">
-              Real-time traffic monitoring during emergency override situations
+            When an Emergency is Actually an Emergency
+            Emergency vehicles used to play a high-stakes game of "Red Light, Green Light," relying on sirens and luck.
+
+            Our system gives them the VIP treatment. When an emergency is detected, we create a red carpet experience: all other lights turn red, and a dedicated green light instantly clears the path to save the day.
             </p>
           </motion.div>
 
@@ -201,6 +205,7 @@ const EmergencyPage = () => {
           </motion.div>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 };

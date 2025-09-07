@@ -11,11 +11,7 @@ const Index = () => {
 
   return (
     <div className="relative">
-      {/* Conditionally render the loading screen or the main content */}
-      {isLoading ? (
-        // Corrected: Pass the setIsLoading function to the child component
-        <LoadingScreen setLoadingComplete={setIsLoading} />
-      ) : (
+      {(
         <>
           {/* Fixed 3D Background */}
           <SplineScene />

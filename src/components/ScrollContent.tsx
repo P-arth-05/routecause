@@ -15,18 +15,18 @@ const ScrollContent = () => {
   const features = [
     {
       icon: <BarChart3 className="h-8 w-8" />,
-      title: "Advanced Analytics",
-      description: "Deep dive into your data with sophisticated analysis tools that reveal hidden patterns and opportunities."
+      title: "Live Traffic Analysis ",
+      description: "Our state-of-the-art computer vision (YOLOv8) sees every vehicle and pedestrian, providing a complete, real-time understanding of intersection dynamics."
     },
     {
       icon: <Target className="h-8 w-8" />,
-      title: "Root Cause Analysis",
-      description: "Identify the fundamental drivers behind your metrics and understand what truly impacts your success."
+      title: "Adaptive AI Control",
+      description: "A trained Reinforcement Learning agent analyzes live data to make strategic decisions, dynamically optimizing signal timings to eliminate bottlenecks and reduce wait times.      "
     },
     {
       icon: <TrendingUp className="h-8 w-8" />,
-      title: "Performance Tracking",
-      description: "Monitor key performance indicators in real-time and track your progress toward strategic goals."
+      title: "Priority & Safety Engine",
+      description: "Our system ensures safety and fairness with a supervisory engine that provides instant emergency vehicle preemption and guarantees no driver is left waiting indefinitely."
     }
   ];
 
@@ -44,12 +44,13 @@ const ScrollContent = () => {
           viewport={{ once: true }}
           className="text-center mb-32"
         >
-          <h2 className="font-hero text-5xl md:text-7xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent">
-            Uncover What Matters
+          <h2 className="font-hero text-5xl md:text-7xl mb-8 bg-gradient-primary bg-clip-text text-transparent">
+            We've All Been There
           </h2>
           <p className="font-body text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">
-            Stop guessing and start knowing. Our platform transforms complex data 
-            into clear, actionable insights that drive real business outcomes.
+            You know the feeling: you're stuck at a red light at 3 a.m. on a completely empty road. Traditional traffic lights are like that friend who can't read the room—they just stick to the plan, no matter how ridiculous it becomes.
+
+            Our system is the friend who actually looks around and says, "Hey, no one's here. Let's get you home already."
           </p>
           <Button className="bg-gradient-primary hover:shadow-glow text-primary-foreground px-8 py-4 text-lg font-medium group">
             <a href="/dashboard" className="flex items-center">
@@ -99,15 +100,15 @@ const ScrollContent = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="font-hero text-4xl md:text-6xl font-bold mb-6 text-foreground">
+          <h2 className="font-hero text-4xl md:text-6xl mb-6 text-foreground">
            If time is money, 
 
 
           </h2>
-          <h2 className="font-hero text-4xl md:text-6xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="font-hero text-4xl md:text-6xl mb-8 bg-gradient-primary bg-clip-text text-transparent">
           isn't a fixed-timer traffic grid just organized,
           </h2>
-          <h2 className="font-hero text-4xl md:text-6xl font-bold mb-8 bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="font-hero text-4xl md:text-6xl mb-8 bg-gradient-primary bg-clip-text text-transparent">
            city-wide theft?
           </h2>
           <p className="font-body text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">

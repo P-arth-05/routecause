@@ -144,8 +144,11 @@ const Dashboard = () => {
             <h1 className="font-hero text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
               Traffic Control Dashboard
             </h1>
-            <p className="font-body text-xl text-muted-foreground max-w-3xl">
-              Real-time intersection monitoring with signal control, vehicle counting, and queue management.
+            <p className="font-body text-xl text-muted-foreground max-w-7xl">
+            The "Finally, A Car!" Moment
+We've all seen a traffic light complete its full, leisurely cycle for just one waiting car. Our system ends that silliness.
+
+Its Real-Time Perception layer is always watching. So if you're the only car at an intersection, the light doesn't make you wait for its coffee break—it just gives you the green light. 
             </p>
           </motion.div>
 

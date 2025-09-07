@@ -21,7 +21,7 @@ const HeroText = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight"
+          className="font-hero text-6xl md:text-8xl lg:text-9xl mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight"
         >
           The Algorithm 
         </motion.h1>
@@ -30,7 +30,7 @@ const HeroText = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
-          className="font-hero text-6xl md:text-8xl lg:text-9xl font-bold mb-8 bg-gradient-hero bg-clip-text text-transparent leading-tight"
+          className="font-hero text-6xl md:text-8xl lg:text-9xl mb-8 bg-gradient-hero bg-clip-text text-transparent leading-tight"
         >
           of the Open Road.
         </motion.h2>
